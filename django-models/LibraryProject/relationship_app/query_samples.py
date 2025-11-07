@@ -1,9 +1,11 @@
-from .models import Book, Library
+from .models import Author, Book, Library
 
 library_name = "Central Library"
+author_name = "Jane Austen"
 
 # Query books filtered by author
-books = Book.objects.filter(author='Jane Austen')
+author = Author.objects.get(name=author_name)
+books = Book.objects.filter(author=author)
 
 # Retrieving all books by library
 library = Library.objects.get(name=library_name)
