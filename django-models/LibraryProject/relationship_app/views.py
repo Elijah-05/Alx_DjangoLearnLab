@@ -6,7 +6,7 @@ from .models import Book, Library
 def book_list(request):
     books = Book.objects.all()
     print(books)
-    return render(request, 'list_books.html', {'books': books})
+    return render(request, 'relationship_app/list_books.html', {'books': books})
     return HttpResponse(books)
 
 # class based view
