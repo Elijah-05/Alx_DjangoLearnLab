@@ -10,7 +10,7 @@ def book_list(request):
     return HttpResponse(books)
 
 # class based view
-from django.views.generic import TemplateView, DetailView, ListView
+from django.views.generic import DetailView, ListView
 
 class LibraryDetailView(DetailView):
     model = Library
