@@ -1,3 +1,26 @@
 from django.shortcuts import render
+from django.http import HttpResponse
+from .models import Book, Library
 
 # Create your views here.
+def book_list(request):
+    books = Book.objects.all()
+    print(books)
+    return render(request, 'list_books.html', {'books': books})
+    return HttpResponse(books)
+
+# class based view
+from django.views.generic import TemplateView, DetailView, ListView
+
+class LibraryDetailView(DetailView):
+    model = Library
+    template_name = 'library_detail.html'
+    context_object_name = 'library'
+
+
+    def get_context_data(self, **kwargs):
+        """Injects additional context data specific to the library."""
+        context = super().get_context_data(**kwargs)  # Get default context data
+        library = self.get_object()  # Retrieve the current library instance
+        context['books'] = library.books.all()  # Add all books in the library to the context
+        return context
