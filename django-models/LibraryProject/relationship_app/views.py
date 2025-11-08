@@ -32,8 +32,13 @@ class register(CreateView):
     form_class = UserCreationForm
     success_url = reverse_lazy("login")
     template_name = "relationship_app/register.html"
-    
+
 class LoginView(CreateView):
     template_name = 'relationship_app/login.html'
     form_class = UserCreationForm
     success_url = reverse_lazy('book_list')
+
+class LogoutView(CreateView):
+    template_name = 'relationship_app/logout.html'
+    form_class = UserCreationForm
+    success_url = reverse_lazy('login')
