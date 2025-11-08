@@ -1,5 +1,5 @@
 from django.views.generic.detail import DetailView
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from .models import Library, Book
 
 # Create your views here.
@@ -21,3 +21,7 @@ class LibraryDetailView(DetailView):
         library = self.get_object()  # Retrieve the current library instance
         context['books'] = library.books.all()  # Add all books in the library to the context
         return context
+    
+def library_detail(request, pk):
+    library = get_object_or_404(Library.objects.prefetch_related('books__author'), pk=pk)
+    return render(request, 'relationship_app/library_detail.html', {'library': library})
