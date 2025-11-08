@@ -2,7 +2,7 @@ from django.views.generic.detail import DetailView
 from django.views.generic import CreateView
 from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.decorators import user_passes_test, permission_required
+from django.contrib.auth.decorators import permission_required, user_passes_test
 from django.contrib import messages
 from django.urls import reverse_lazy
 from .models import Library, Book
