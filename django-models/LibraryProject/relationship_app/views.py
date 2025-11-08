@@ -2,6 +2,7 @@ from django.views.generic.detail import DetailView
 from django.views.generic import CreateView
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import login, logout, authenticate
 from django.urls import reverse_lazy
 from .models import Library, Book
 
@@ -26,6 +27,11 @@ class LibraryDetailView(DetailView):
         library = self.get_object()  # Retrieve the current library instance
         context['books'] = library.books.all()  # Add all books in the library to the context
         return context
+    
+class LoginView(CreateView):
+    template_name = 'relationship_app/login.html'
+    form_class = UserCreationForm
+    success_url = reverse_lazy('book_list')
 
 class SignUpView(CreateView):
     form_class = UserCreationForm
