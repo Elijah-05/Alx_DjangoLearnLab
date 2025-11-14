@@ -11,16 +11,6 @@ class Book(models.Model):
     def __str__(self):
         return f"{self.title} by {self.author} ({self.publication_year})"
     
-# Custom user model
-class CustomUser(AbstractUser):
-    date_of_birth: models.DateField
-    profile_photo: models.ImageField
-
-    # objects = CustomUserManager()
-
-    def __str__(self):
-        return self.username
-    
 # Custom user manager
 class CustomUserManager(BaseUserManager):
 
@@ -61,3 +51,12 @@ class CustomUserManager(BaseUserManager):
         ]
 
     
+# Custom user model
+class CustomUser(AbstractUser):
+    date_of_birth: models.DateField
+    profile_photo: models.ImageField
+
+    objects = CustomUserManager()
+
+    def __str__(self):
+        return self.username
