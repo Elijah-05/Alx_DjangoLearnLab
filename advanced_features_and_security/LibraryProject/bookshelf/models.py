@@ -6,7 +6,14 @@ class Book(models.Model):
     title = models.CharField(max_length=200)
     author = models.CharField(max_length=100)
     publication_year = models.IntegerField()
-
+    
+    class Meta:
+        permissions = [
+            ("can_view", "Can view users"),
+            ("can_create", "Can create users"),
+            ("can_edit", "Can edit users"),
+            ("can_delete", "Can delete users"),
+        ]
 
     def __str__(self):
         return f"{self.title} by {self.author} ({self.publication_year})"
@@ -41,14 +48,6 @@ class CustomUserManager(BaseUserManager):
             raise ValueError("Superuser must have is_superuser=True")
 
         return self.create_user(username, email, password, **extra_fields)
-    
-    class Meta:
-        permissions = [
-            ("can_view", "Can view users"),
-            ("can_create", "Can create users"),
-            ("can_edit", "Can edit users"),
-            ("can_delete", "Can delete users"),
-        ]
 
     
 # Custom user model
