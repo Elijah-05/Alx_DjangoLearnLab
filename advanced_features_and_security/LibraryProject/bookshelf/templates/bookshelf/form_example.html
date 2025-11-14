@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Book Form</title>
+</head>
+<body>
+
+    <h1>{{ form.instance.pk|yesno:"Edit Book,Add New Book" }}</h1>
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <button type="submit">
+            {{ form.instance.pk|yesno:"Update,Create" }}
+        </button>
+    </form>
+
+    <p>
+        <a href="{% url 'book_list' %}">⬅ Back to Book List</a>
+    </p>
+
+</body>
+</html>
