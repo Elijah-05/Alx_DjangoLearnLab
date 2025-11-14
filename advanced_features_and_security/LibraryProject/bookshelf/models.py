@@ -52,3 +52,12 @@ class CustomUserManager(BaseUserManager):
 
         return self.create_user(username, email, password, **extra_fields)
     
+    class Meta:
+        permissions = [
+            ("can_view", "Can view users"),
+            ("can_create", "Can create users"),
+            ("can_edit", "Can edit users"),
+            ("can_delete", "Can delete users"),
+        ]
+
+    
