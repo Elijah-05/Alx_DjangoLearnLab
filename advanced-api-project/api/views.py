@@ -1,5 +1,7 @@
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 from rest_framework import generics
+from rest_framework import generics, permissions, filters
+from django_filters.rest_framework import DjangoFilterBackend
 from .models import Book
 from .serializers import BookSerializer
 
@@ -29,6 +31,50 @@ class BookListView(generics.ListAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
+
+    """
+    Retrieves all Book instances with support for:
+    - Filtering by title, publication_year, and author
+    - Searching by title and author's name
+    - Ordering by any field, especially title and publication_year
+
+    Examples:
+    Filtering:
+        /api/books/?title=Dune
+        /api/books/?publication_year=1965
+        /api/books/?author=1
+
+    Searching:
+        /api/books/?search=dune
+
+    Ordering:
+        /api/books/?ordering=title
+        /api/books/?ordering=-publication_year
+    """
+
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+    permission_classes = [permissions.AllowAny]
+
+    # Enable filtering, searching, ordering
+    filter_backends = [
+        DjangoFilterBackend,
+        filters.SearchFilter,
+        filters.OrderingFilter
+    ]
+
+    # Fields available for filtering
+    filterset_fields = ['title', 'publication_year', 'author']
+
+    # Fields searchable by users
+    # Note: searching across FK uses the syntax: author__name
+    search_fields = ['title', 'author__name']
+
+    # Fields users are allowed to order by
+    ordering_fields = ['title', 'publication_year', 'author']
+
+    # Default ordering (optional)
+    ordering = ['title']
 
 
 # ----------------------------
