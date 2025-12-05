@@ -19,10 +19,7 @@ class PostForm(forms.ModelForm):
         model = Post
         fields = ['title', 'content', 'tags']  # Add 'tags' to the fields
 
-    tags = forms.CharField(
-        widget=TagWidget(),  # Use the TagWidget for rendering tags input
-        required=False,  # Optional field (set this as per your requirements)
-    )
+    tags = forms.CharField(widget=TagWidget()) 
 
 class CommentForm(forms.ModelForm):
     class Meta:
