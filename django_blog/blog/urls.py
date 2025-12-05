@@ -24,5 +24,7 @@ urlpatterns = [
     path('search/', views.search, name='search'),
     
     # Tagged posts view
-    path('tags/<str:tag_name>/', views.tagged_posts, name='tagged_posts'),
+    path('tags/<slug:tag_slug>/', views.tagged_posts, name='tagged_posts'),
 ]
+
+# blog/urls.py doesn't contain: ["tags/<slug:tag_slug>/", "PostByTagListView.as_view()"]
