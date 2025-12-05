@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
+from taggit.managers import TaggableManager
 
 
 class Tag(models.Model):
@@ -8,14 +9,13 @@ class Tag(models.Model):
 
     def __str__(self):
         return self.name
-    
-        
+
 class Post(models.Model):
     title = models.CharField(max_length=200)
     content = models.TextField()
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     published_date = models.DateTimeField(default=timezone.now)
-    tags = models.ManyToManyField(Tag, related_name='posts', blank=True)
+    tags = TaggableManager()  # Use TaggableManager instead of ManyToManyField
 
     def __str__(self):
         return self.title

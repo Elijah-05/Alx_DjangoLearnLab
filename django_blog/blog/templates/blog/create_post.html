@@ -1,0 +1,5 @@
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}  <!-- This will render the form fields, including tags -->
+    <button type="submit">Save Post</button>
+</form>
