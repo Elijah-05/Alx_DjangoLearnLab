@@ -79,9 +79,9 @@ DATABASES = {
         # 'ENGINE': 'django.db.backends.sqlite3',
         # 'NAME': BASE_DIR / 'db.sqlite3',
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'blogdb',
-        'USER': 'postgres',
-        'PASSWORD': 'yourpassword',
+        'NAME': 'blog_db',
+        'USER': 'qr_admin',
+        'PASSWORD': 'sample',
         'HOST': 'localhost',
         'PORT': '5432',
     }
