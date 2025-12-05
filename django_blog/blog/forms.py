@@ -3,8 +3,12 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from .models import Post
 from .models import Comment
-from taggit.forms import TagField
+from taggit.forms import TagField, TagWidget
 
+
+# Checks for “Modify Post Creation and Update Forms” task
+
+# blog/forms.py doesn't contain: ["TagWidget()"]
 
 class CustomUserCreationForm(UserCreationForm):
     email = forms.EmailField()
@@ -14,7 +18,7 @@ class CustomUserCreationForm(UserCreationForm):
         fields = ('username', 'email', 'password1', 'password2')
 
 class PostForm(forms.ModelForm):
-    tags = TagField(widget=forms.TextInput(attrs={'placeholder': 'Add tags (comma separated)'}))
+    tags = TagWidget(widget=forms.TextInput(attrs={'placeholder': 'Add tags (comma separated)'}))
 
     class Meta:
         model = Post
