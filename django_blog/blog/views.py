@@ -4,6 +4,7 @@ from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.decorators import login_required
 from .forms import CustomUserCreationForm
 from .models import Post
 
@@ -21,6 +22,7 @@ def register(request):
     return render(request, 'blog/register.html', {'form': form})
 
 
+@login_required
 def profile(request):
     if request.method == 'POST':
         form = UserChangeForm(request.POST, instance=request.user)
@@ -33,6 +35,7 @@ def profile(request):
     return render(request, 'blog/profile.html', {'form': form})
 
 # List view for displaying all blog posts
+@login_required
 class PostListView(ListView):
     model = Post
     template_name = 'blog/post_list.html'  # Your template for displaying posts
@@ -40,12 +43,14 @@ class PostListView(ListView):
     ordering = ['-published_date']  # Ordering posts by latest
 
 # Detail view for displaying a single post
+@login_required
 class PostDetailView(DetailView):
     model = Post
     template_name = 'blog/post_detail.html'
     context_object_name = 'post'
 
 # Create view for creating a new post
+@login_required
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
     template_name = 'blog/post_form.html'
@@ -57,6 +62,7 @@ class PostCreateView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 # Update view for editing an existing post
+@login_required
 class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Post
     template_name = 'blog/post_form.html'
@@ -68,6 +74,7 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         return self.request.user == post.author
 
 # Delete view for deleting a post
+@login_required
 class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Post
     template_name = 'blog/post_confirm_delete.html'
