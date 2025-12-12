@@ -23,10 +23,22 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-g=n-k-640g^c565w*k99--0j90k6z0%4$3(8bkt*#q#ry!rsf0'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+from .settings import *
 
-ALLOWED_HOSTS = []
+DEBUG = False
 
+ALLOWED_HOSTS = ["your-domain.com", "your-server-ip", "your-heroku-app.herokuapp.com"]
+
+# Security
+SECURE_BROWSER_XSS_FILTER = True
+X_FRAME_OPTIONS = "DENY"
+SECURE_CONTENT_TYPE_NOSNIFF = True
+SECURE_SSL_REDIRECT = True  # If HTTPS is enabled
+
+# Static files
+STATIC_ROOT = BASE_DIR / "staticfiles"
+
+# SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # Application definition
 
